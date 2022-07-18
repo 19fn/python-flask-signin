@@ -1,0 +1,38 @@
+# Version '3.8' only will work with a least of docker-compose version 1.29.0
+version: '3.8'
+services:
+        mysql:
+                image: mysql:8.0
+                container_name: mysql_db
+
+                environment:
+                        MYSQL_ROOT_PASSWORD: SignIn2022Root
+                        MYSQL_DATABASE: signin_db
+                ports:
+                        - "3306:3306"
+
+                restart: on-failure
+
+                volumes:
+                        - "/opt/mysql-signin-db:/var/lib/mysql"
+
+                healthcheck:
+                        test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+                        interval: 30s
+                        timeout: 10s
+                        retries: 5
+        
+        # signin:
+        #         image: 
+        #         container_name:
+                
+        #         ports:
+        #                 - "80:8080"
+                
+        #         restart: on-failure
+
+        #         command: [ "python3", "app.py" ]
+
+        #         depends_on:
+        #                 mysql:
+        #                         condition: service_healthy
