@@ -1,55 +1,61 @@
 from signin import app, db
-from signin.models import Usuario
-from signin.forms import RegisterForm, LoginForm
-from flask_login import login_user, logout_user, login_required, current_user
-from flask import render_template, session, flash, redirect, url_for, request
+from signin.models import User
+from signin.forms import RegisterForm, LoginForm, ResetPasswordForm
+from flask_login import login_user
+from flask import render_template, flash, redirect, url_for, request
 
 
 # Routes
-@app.route("/register.html", methods=["GET", "POST"])
+@app.route("/python-flask-signin/register.html", methods=["GET", "POST"])
 def register_page():
     form = RegisterForm()
 
-    if request.method == "POST":
-        username_to_login = Usuario.query.filter_by(username=form.username.data).first()
-        email_to_login = Usuario.query.filter_by(email=form.email.data).first()
-        if username_to_login:
-            flash(f"Username: '{form.username.data}' already exists.", category="danger")
-        elif email_to_login:
-            flash(f"Email: '{form.email.data}' is already in use.", category="danger")
+    if request.method == "POST" and form.validate():
+        username_to_register = User.query.filter_by(username=form.username.data).first()
+        email_to_register = User.query.filter_by(email=form.email.data).first()
+        if username_to_register:
+            flash(f"'{form.username.data}' already exists.", category="danger")
+        elif email_to_register:
+            flash(f"'{form.email.data}' is already in use.", category="danger")
         else:
-            crear_usuario = Usuario( nombre=form.nombre.data,
-                                     username=form.username.data,
-                                     email=form.email.data,
-                                     passw=form.password.data )
+            crear_usuario = User(   full_name=form.nombre.data,
+                                    username=form.username.data,
+                                    email=form.email.data,
+                                    passw=form.password.data )
             db.session.add(crear_usuario)
             db.session.commit()
             login_user(crear_usuario)
             flash(f"User created successfully.", category="success")
-            flash(f"Welcome {crear_usuario.username}!", category="success")
-            return redirect(url_for("login_page"))
-    if form.errors != {}:
-        for err_msg in form.errors.values():
-            flash(f"{err_msg}", category="danger")
+            return redirect(url_for("login_page"))    
     return render_template("/register.html", form=form)
   
-@app.route("/login.html", methods=["GET", "POST"])
+@app.route("/python-flask-signin/")
+@app.route("/python-flask-signin/login.html", methods=["GET", "POST"])
 def login_page():
     form = LoginForm()
 
-    if form.validate_on_submit():
-        user_to_login = Usuario.query.filter_by(email=form.email.data).first()
-        if user_to_login and user_to_login.check_password(password=form.password.data):
+    if request.method == "POST" and form.validate():
+        user_to_login = User.query.filter_by(email=form.email.data).first()
+        if user_to_login is None:
+            flash(f"The email you entered doesn't belong to an account. Please check your email and try again.", category="danger")
+        elif user_to_login.check_password(password=form.password.data):
             login_user(user_to_login)
             flash(f"Hi {user_to_login.username} nice to see you back!", category="success")
             return redirect(url_for("login_page"))
         else:
-            flash("Sorry, your email or password was incorrect. Please double-check it.", category="danger")
-    if form.errors != {}:
-        for err_msg in form.errors.values():
-            flash(f"{err_msg}", category="danger")
+            flash("Sorry, your password was incorrect. Please double-check your password.", category="danger")
     return render_template("/login.html", form=form)
 
+@app.route("/python-flask-signin/forgot_password.html", methods=["GET", "POST"])
+def reset_password_page():
+    form = ResetPasswordForm()
+    if request.method == "POST" and form.validate():
+        user_to_login = User.query.filter_by(email=form.email.data).first()
+        if user_to_login is None:
+            flash(f"The email you entered doesn't belong to an account.", category="danger")
+        else:
+            flash("Email sent. Please follow the steps in the email.", category="success")
+    return render_template("/forgot_password.html", form=form)
 
 # Errors
 @app.errorhandler(404)
