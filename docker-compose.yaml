@@ -22,17 +22,15 @@ services:
                         timeout: 10s
                         retries: 5
         
-        # signin:
-        #         image: 
-        #         container_name:
+        signin:
+                image: signin:v1.0
+                container_name: signin_app
                 
-        #         ports:
-        #                 - "80:8080"
+                ports:
+                        - "80:8080"
                 
-        #         restart: on-failure
+                restart: on-failure
 
-        #         command: [ "python3", "app.py" ]
-
-        #         depends_on:
-        #                 mysql:
-        #                         condition: service_healthy
+                depends_on:
+                        mysql:
+                                condition: service_healthy
