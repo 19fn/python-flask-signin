@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -7,10 +8,11 @@ from flask_login import LoginManager
 app = Flask(__name__, template_folder="templates")
 
 # Credentials
-uid = os.environ.get("SIGNIN_UID")
-passwd = os.environ.get("SIGNIN_PASSWORD")
-ip = os.environ.get("SIGNIN_IP")
-database = os.environ.get("SIGNIN_DATABASE")
+load_dotenv()
+uid = os.getenv("SIGNIN_UID")
+passwd = os.getenv("SIGNIN_PASSWORD")
+ip = os.getenv("SIGNIN_IP")
+database = os.getenv("SIGNIN_DATABASE")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{uid}:{passwd}@{ip}:3306/{database}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
