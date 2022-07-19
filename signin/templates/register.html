@@ -1,122 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>{% block title %}Register - Your Website{% endblock %}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
-    
-    <style>
-      /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-      .navbar {
-        margin-bottom: 10px;
-        border-radius: 0;
-      }
+{% extends "layout.html" %}
 
-      .jumbotron {
-        margin-bottom: 0;
-        padding-top: 30px;
-        padding-bottom: 20px;
-        background-color: white;
-      }
-
-      .container {
-        color: black;
-      }
-      
-      /* Add a navy blue background color and some padding to the footer */
-      footer {
-        background-color: #1e2969;
-        padding: 15px;
-      }
-      .img-fluid {
-        max-width: 100%;
-        height: auto;
-      }
-    </style>
-  </head>
+{% block title %}Sign In - SignIn{% endblock %}
  
-    <body style="background-color: lightgray;">
-        <body style="margin-top: 5rem;">
-            <div class="container" style="margin-bottom: 2rem; margin-top: 4rem;">
-              <div class="row">
-                <div class="col-sm-12">
-                  <p style="font-weight: 900; font-size: 39px; text-align: center; color: #9d1212;">
-                    PRIMERA VEZ EN <br>
-                    <strong style="font-weight: 900; font-size: 39px; text-align: center;">
-                      <a href="{{ url_for('login_page') }}" style="color: #c09506;">STEAM</a>
-                    </strong><strong style="font-weight: 900; font-size: 39px; text-align: center;">
-                      <a href="{{ url_for('login_page') }}"  style="color: #9d1212;">FINDER</a> 
-                    </strong>
-                  </p>
-                  <p style="font-weight: 900; font-size: 39px; text-align: center; color: #c09506;">
-                    COMENCEMOS.
-                  </p>
-                </div> 
-              </div>
-              <div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6" style="margin-top: 2rem;">
-                  <p style="font-family: Arial; font-size: 25px; text-align: center;">
-                    Ingrese su información de contacto o inicie sesión, si ya tiene una cuenta.
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-            <div class="container">
-                <form class="form-register" method="POST">
-                    {{ form.hidden_tag() }}
-                    <div class="form-outline mb-4">
-                      <div class="col-sm-3"></div>
-                      <div class="col-sm-6" style="background-color: rgb(236,236,236); padding: 6rem;">
-                              <!-- Error messages -->
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                            {% if messages %}
-                                {% for category, msg in messages %}
-                                    <div class="alert alert-{{ category }}">
-                                        <!-- <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true" >&times;</span>
-                                        </button> -->
-                                        <label>{{ msg }}</label> 
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %}
-                        {{ form.nombre.label() }}
-                        {{ form.nombre(class="form-control", placeholder="Nombre") }}
-                        <br>
-                        {{ form.username.label() }}
-                        {{ form.username(class="form-control", placeholder="Nombre de Usuario") }}
-                        <br>
-                        {{ form.email.label() }}
-                        {{ form.email(class="form-control", placeholder="Correo Electronico")}}
-                        <br>
-                        {{ form.password.label() }}
-                        {{ form.password(class="form-control", placeholder="Contraseña") }}
-                        <br>
-                        {{ form.password_confirmation.label() }}
-                        {{ form.password_confirmation(class="form-control", placeholder="Repetir Contraseña")}}
-                        <br>
-                        <div class="form-check d-flex justify-content-center mb-4">
-                          <label class="form-check-label">
-                            {{ form.acepto_terminos(class="form-check-input") }} {{ form.acepto_terminos.label() }} <a href="#">Terminos & Condiciones</a>  
-                          </label>
-                          <br>
-                          <label for="">
-                            <a style="color: black;" href="{{ url_for('login_page') }}">Ya tengo una cuenta</a>
-                          </label>
-                        </div>
-          
-                        <br>
-                        {{ form.submit(class="btn btn-primary btn-block btn-danger", style="background-color: #9d1212") }}
-                      </div>
-                      <br>
+{% block body %}
+  <body style="background-color: lightgray;">
+    <br>
+    <body style="margin-top: 5rem;">
+      <div class="container">
+        <div class="form-outline mb-4">
+          <div class="col-sm-4"></div>
+            <div class="form-floating col-sm-4" style="background-color: rgb(236,236,236); padding: 4rem;">
+              <p style="font-size: 40px; text-align: center; font-family: 'Brush Script MT', cursive;">
+                <strong>
+                  <a href="{{ url_for('register_page') }}"  style="color: #000000;">REGISTER</a> 
+                </strong>
+              </p>
+              <p style="font-family: Arial; font-size: 20px; text-align: center; color: #5c5c5c;">
+                Sign up to see photos and videos from your friends.
+              </p>  
+              <hr>
+              <br>
+              <form class="form-register" method="POST">
+                {{ form.hidden_tag() }}
+
+                <!-- Error messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, msg in messages %}
+                            <div class="alert alert-{{ category }}">
+                                <label>{{ msg }}</label> 
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <br>
+                {{ form.nombre(class="form-control", placeholder="Full Name") }}
+
+                <br>
+                {{ form.username(class="form-control", placeholder="Username") }}
+
+                {% for field, errors in form.errors.items() %}
+                  {% if form[field].name == 'email' %}
+                    <div class="col-sm-12" style="padding: 1%;">
+                      <small class="form-text text-muted" style="color: red;">
+                        {{ ', '.join(errors) }}
+                      </small>
                     </div>
-                  </form>
+                  {% endif %}
+                {% endfor %}
+                <br>
+                {{ form.email(class="form-control", placeholder="Email")}}
+
+                <br>
+                {{ form.password(class="form-control", placeholder="Password") }}
+
+                {% for field, errors in form.errors.items() %}
+                  {% if form[field].name == 'password_confirmation' %}
+                      <div class="col-sm-12" style="padding: 1%;">
+                      <small class="form-text text-muted" style="color: red;">
+                        {{ ', '.join(errors) }}
+                      </small>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+                <br>
+                {{ form.password_confirmation(class="form-control", placeholder="Confirm Password")}}
+                    
+                <div>
+                  <br>
+                  <p style="font-family: Arial; font-size: 13px; text-align: center; color: #5c5c5c;">
+                    By signing up, you agree to our <a href="#" style="color: black;">Terms, Data Policy and Cookies Policy.</a> 
+                  </p> 
+                </div>
+                <br>
+                  {{ form.submit(class="btn btn-primary btn-block") }}
+              </form>
             </div>
-            <br><br>
-          </body>
+          </div>
+      </div>
+      <br>
+      <div class="container">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4" style="background-color: rgb(236,236,236);">
+          <br>
+          <p style="font-family: Arial; font-size: 15px; text-align: center; color: #5c5c5c;">
+            Have an account? <a href="{{ url_for('login_page') }}"  style="color: #0275d8 ;">Log in</a>
+          </p>
+          <br>
+        </div>
+      </div>
+      <br>
     </body>
-</html>
+  </body>
+{% endblock %}
