@@ -1,19 +1,21 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, SelectField
-from wtforms.validators import InputRequired, Length, EqualTo, Email, DataRequired, ValidationError
-from signin.models import Usuario
+from wtforms.validators import InputRequired, Length, EqualTo, Email, DataRequired
+from signin.models import User
 
 class RegisterForm(FlaskForm):
-    nombre = StringField(label="Nombre*", validators=[Length(min=3, max=40, message="El nombre debe tener como minimo 3 letras."), DataRequired(message="Debe ingresar un nombre para poder registrarse.")]) 
-    username = StringField(label="Username")
-    email = StringField(label="Correo Electronico*", validators=[Email(message="Correo electronico invalido."), DataRequired()])
-    password = PasswordField(label="Contraseña*", validators=[Length(min=8, message="La contraseña debe tener como minimo 8 caracteres."), DataRequired()])
-    password_confirmation = PasswordField(label="Repetir Contraseña*", validators=[EqualTo("password", message="Las contraseñas deben ser iguales."), DataRequired()])
-    acepto_terminos = BooleanField(label="Acepto", validators=[DataRequired(message="Debe aceptar los terminos & condiciones.")])
-    submit = SubmitField(label="Create Account")
+    nombre = StringField(label="Full Name", validators=[Length(min=5, max=35, message="Minimum length for name is five characters."), DataRequired(message="You must provide a name.")]) 
+    username = StringField(label="Username", validators=[Length(min=3, max=10, message="Minimum length for username is three characters."), DataRequired(message="You must provide a username.")])
+    email = StringField(label="Email", validators=[Email(message="Invalid email address."), DataRequired()])
+    password = PasswordField(label="Password", validators=[Length(min=8, message="Minimum length for password is eight characters."), DataRequired(message="You must provide a strong password.")])
+    password_confirmation = PasswordField(label="Repeat Password", validators=[EqualTo("password", message="Passwords do not match."), DataRequired()])
+    submit = SubmitField(label="Sign up")
 
 class LoginForm(FlaskForm):
-    email = StringField(label="Correo Electronico*", validators=[DataRequired()])
-    password = PasswordField(label="Contraseña*", validators=[DataRequired(message="Debe Ingresar una Contraseña.")])
-    remember_me = BooleanField(label="Recordarme")
-    submit = SubmitField(label="Ingresar")
+    email = StringField(label="Email", validators=[Email(message="Invalid email address.") ,DataRequired()])
+    password = PasswordField(label="Password", validators=[DataRequired()])
+    submit = SubmitField(label="Log In")
+
+class ResetPasswordForm(FlaskForm):
+    email = StringField(label="Email", validators=[Email(message="Invalid email address.") ,DataRequired()])
+    submit = SubmitField(label="Send Login Link")
