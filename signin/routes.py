@@ -1,11 +1,20 @@
 from signin import app, db
 from signin.models import User
 from signin.forms import RegisterForm, LoginForm, ResetPasswordForm
+from signin.scraper import getQuotation
 from flask_login import login_user
 from flask import render_template, flash, redirect, url_for, request
 
 
+
 # Routes
+@app.route("/")
+@app.route("/python-flask-signin/home.html")
+def home_page():
+    if request.method == "GET":
+        df = getQuotation()
+    return render_template("/home.html", tables=[df.to_html(classes='data', header=True, index=False, bold_rows=True)])
+
 @app.route("/python-flask-signin/register.html", methods=["GET", "POST"])
 def register_page():
     form = RegisterForm()
