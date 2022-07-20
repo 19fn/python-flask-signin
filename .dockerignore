@@ -3,3 +3,7 @@ venv
 credentials*
 .gitignore
 .git*
+docker-compose.yaml
+initialize.sh
+dockerfile
+README.md
