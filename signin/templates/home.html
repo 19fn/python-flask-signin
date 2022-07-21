@@ -15,39 +15,65 @@
     <body style="margin-top: 5rem;">
 
         <div class="container">
-            <div class="col-sm-4"></div>
-                <div class="col-sm-4" style="background-color: rgb(35, 35, 35);">
+            <div class="col-sm-3"></div>
+                <div class="col-sm-6" style="background-color: rgb(35, 35, 35);">
                     <br>
                     <p style="font-family: Arial; font-size: 15px; text-align: center;">
-                        <a href="{{ url_for('register_page') }}"><span class="glyphicon glyphicon-plus" style="font-size: 25px;"></span></a>&emsp;
-                        <a href="{{ url_for('home_page') }}"><span class="glyphicon glyphicon-home" style="font-size: 25px;"></span></a>&emsp;
-                        <a href="{{ url_for('login_page') }}"><span class="glyphicon glyphicon-log-in" style="font-size: 25px;"></span></a>
+                        <a href="{{ url_for('register_page') }}">
+                            <span class="glyphicon glyphicon-plus" style="font-size: 25px;"></span>
+                        </a>&emsp;
+                        <a href="{{ url_for('home_page') }}">
+                            <span class="glyphicon glyphicon-home" style="font-size: 25px;"></span>
+                        </a>&emsp;
+                        <a href="{{ url_for('login_page') }}">
+                            <span class="glyphicon glyphicon-log-in" style="font-size: 25px;"></span>
+                        </a>
                     </p>
                 </div>
         </div>
 
         <div class="container">
-            <div class="form-outline mb-4">
-                <div class="col-sm-4"></div>
-                    <div class="form-floating col-sm-4" style="background-color: rgb(236,236,236); padding: 4rem;">
+            <div>
+                <div class="col-sm-3"></div>
+                    <div class="col-sm-6" style="background-color: rgb(236,236,236); padding: 4rem;">
                         <p style="font-size: 20px; text-align: center; font-family: Arial;">
                             <strong>
-                                U<span class="glyphicon glyphicon-usd" style="font-size: 50px;"></span>D
-                                <br> <br>
-                                COTIZACION
-                                {% for table in tables %}
-                                    {{ table | safe }}
-                                {% endfor %}
+                                <img src="{{ image }}" alt="Chart" height="250" width="450" style="text-align: center;">
+                                <hr>
+                                <br>
                             </strong> 
-                        </p>  
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" style="background-color: rgb(40, 40, 40); color: white;">
+                                <thead>
+                                    <tr>
+                                        {% for column in column_names %}
+                                            <th>{{ column }}</th>
+                                        {% endfor %}
+                                    </tr>    
+                                </thead>
+                                <tbody>
+                                    {% for row in row_data %}
+                                        <tr>
+                                            {% for column, row_ in zip(column_names, row) %}
+                                                <td>
+                                                    {{ row_ }}
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}  
+                                </tbody>   
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="container">
-          <div class="col-sm-4"></div>
-            <div class="col-sm-4" style="background-color: #0278df;">
+          <div class="col-sm-3"></div>
+            <div class="col-sm-6" style="background-color: #0278df;">
                 <br>
                 <p style="font-family: Arial; font-size: 15px; text-align: center; color: #5c5c5c;">
                     <a href=""  style="color: #000000 ;"><span class="glyphicon glyphicon-envelope"></span></a>
