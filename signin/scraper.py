@@ -21,13 +21,15 @@ def getQuotation(url=URL, header=HEADER):
         divisa = columns[0].text.strip()
         cotizacion_compra = columns[1].text.strip()
         cotizacion_venta = columns[2].text.strip()
+        
         data = {
             "DIVISA": [divisa],
             "COMPRA": [cotizacion_compra],
             "VENTA" : [cotizacion_venta],
             "FECHA" : [get_quotation_date.text],
-            "HORA" : [get_quotation_time.text[20:]]
+            "HORA"  : [get_quotation_time.text[20:]]
         }
-        df = pd.DataFrame(data, index=["1"])
+
+        df = pd.DataFrame(data)
         return df
 
