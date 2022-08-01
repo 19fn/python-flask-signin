@@ -16,17 +16,20 @@
 
         <div class="container">
             <div class="col-sm-3"></div>
-                <div class="col-sm-6" style="background-color: rgb(35, 35, 35);">
+                <div class="col-sm-6" style="background-color: #0278df;">
                     <br>
                     <p style="font-family: Arial; font-size: 15px; text-align: center;">
                         <a href="{{ url_for('register_page') }}">
-                            <span class="glyphicon glyphicon-plus" style="font-size: 25px;"></span>
+                            <span class="glyphicon glyphicon-plus" style="font-size: 25px; color: #ffff;"></span>
                         </a>&emsp;
                         <a href="{{ url_for('home_page') }}">
-                            <span class="glyphicon glyphicon-home" style="font-size: 25px;"></span>
+                            <span class="glyphicon glyphicon-home" style="font-size: 25px; color: #ffff;"></span>
+                        </a>&emsp;
+                        <a href="{{ url_for('math_page') }}">
+                            <span class="glyphicon glyphicon-phone" style="font-size: 25px; color: #ffff;"></span>
                         </a>&emsp;
                         <a href="{{ url_for('login_page') }}">
-                            <span class="glyphicon glyphicon-log-in" style="font-size: 25px;"></span>
+                            <span class="glyphicon glyphicon-log-in" style="font-size: 25px; color: #ffff;"></span>
                         </a>
                     </p>
                 </div>
@@ -38,7 +41,9 @@
                     <div class="col-sm-6" style="background-color: rgb(236,236,236); padding: 4rem;">
                         <p style="font-size: 20px; text-align: center; font-family: Arial;">
                             <strong>
-                                <img src="{{ image }}" alt="Chart" height="250" width="450" style="text-align: center;">
+                                <a href="#">
+                                    <img src="{{ image }}" alt="Function" height="250" width="450" style="text-align: center;" onclick="window.open(this.src, '_blank');">
+                                </a>
                                 <hr>
                                 <br>
                             </strong> 
@@ -72,13 +77,13 @@
         </div>
 
         <div class="container">
-          <div class="col-sm-3"></div>
-            <div class="col-sm-6" style="background-color: #0278df;">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6" style="background-color: rgb(35, 35, 35);">
                 <br>
-                <p style="font-family: Arial; font-size: 15px; text-align: center; color: #5c5c5c;">
-                    <a href=""  style="color: #000000 ;"><span class="glyphicon glyphicon-envelope"></span></a>
-                    <a href=""  style="color: #000000 ;"><span class="glyphicon glyphicon-play-circle"></span></a>
-                    <a href=""  style="color: #000000 ;"><span class="glyphicon glyphicon-comment"></span></a>
+                <p style="font-family: Arial; font-size: 15px; text-align: center; color: #ffffff;">
+                    <a href=""  style="color: #0278df;"><span class="glyphicon glyphicon-envelope"></span></a>
+                    <a href=""  style="color: #0278df;"><span class="glyphicon glyphicon-play-circle"></span></a>
+                    <a href=""  style="color: #0278df;"><span class="glyphicon glyphicon-comment"></span></a>
                 </p>
             </div>
         </div>
