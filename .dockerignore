@@ -5,5 +5,5 @@ credentials*
 .git*
 docker-compose.yaml
 initialize.sh
-dockerfile
+Dockerfile
 README.md
